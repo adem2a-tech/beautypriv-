@@ -9,41 +9,40 @@
     --font-sans: 'Montserrat', sans-serif;
     --font-serif: 'Playfair Display', serif;
 
-    /* Off-white background */
-    --background: 45 20% 97%; 
-    /* Dark charcoal/brown text */
-    --foreground: 15 11% 18%;
+    /* High-end Luxury Dark Palette */
+    --background: 0 0% 0%; 
+    --foreground: 0 0% 100%;
 
-    /* Powder pink */
-    --primary: 344 68% 87%;
-    --primary-foreground: 15 11% 18%;
+    /* Elegant Gold / Bronze */
+    --primary: 30 50% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Nude beige */
-    --secondary: 30 35% 84%;
-    --secondary-foreground: 15 11% 18%;
+    /* Deep Charcoal */
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 0 0% 90%;
 
-    /* Slightly darker off-white for cards/muted elements */
-    --muted: 30 20% 94%;
-    --muted-foreground: 15 6% 45%;
+    /* Muted elements */
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 60%;
 
-    /* Elegant gold */
-    --accent: 46 65% 52%;
-    --accent-foreground: 0 0% 100%;
+    /* Polished Gold Accent */
+    --accent: 38 45% 65%;
+    --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     /* Borders */
-    --border: 30 15% 88%;
-    --input: 30 15% 88%;
-    --ring: 344 68% 87%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 30 50% 50%;
 
-    --radius: 0.75rem;
+    --radius: 0rem; /* Sharp edges for ultra-premium look */
     
-    --card: 0 0% 100%;
-    --card-foreground: 15 11% 18%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 15 11% 18%;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
   }
 
   .dark {

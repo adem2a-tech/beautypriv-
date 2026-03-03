@@ -28,21 +28,28 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Link href={`/product/${product.id}`} className="group block h-full">
-      <div className="bg-card rounded-2xl overflow-hidden border border-border/50 hover-lift h-full flex flex-col">
+      <motion.div 
+        whileHover={{ y: -10, rotateY: 5, perspective: 1000 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="bg-card overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500 h-full flex flex-col relative"
+      >
         {/* Image Container */}
-        <div className="relative aspect-[4/5] overflow-hidden bg-muted/30">
+        <div className="relative aspect-[3/4] overflow-hidden bg-black">
           <img
             src={product.imageUrl}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-1000 group-hover:scale-110"
             loading="lazy"
           />
+          {/* Subtle Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+          
           {/* Badges */}
-          <div className="absolute top-3 left-3 flex flex-col gap-2">
-            <span className="bg-accent text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
-              Offre Privée
+          <div className="absolute top-4 left-4 flex flex-col gap-2">
+            <span className="bg-primary/90 text-white text-[9px] font-bold px-4 py-1 uppercase tracking-[0.2em] backdrop-blur-sm">
+              Luxury Deal
             </span>
-            {discount > 0 && (
+          </div>            {discount > 0 && (
               <span className="bg-destructive text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md w-fit">
                 -{discount}%
               </span>

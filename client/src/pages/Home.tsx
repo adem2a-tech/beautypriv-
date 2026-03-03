@@ -12,68 +12,68 @@ export function Home() {
   return (
     <div className="flex flex-col w-full">
       {/* Hero Section */}
-      <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
-        {/* landing page hero minimalist beauty products */}
-        <img
-          src="https://pixabay.com/get/gcd9144f06f22ff3ed36bf4bad386a2c3bdbd9f07d92376f375738476778c025421ecf0264c18fcedabd6afff71309fe6515a1e5fa7b0a0fbdc841bb914b68801_1280.jpg"
-          alt="Premium Beauty Products"
-          className="absolute inset-0 w-full h-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-background/20 backdrop-blur-[2px]"></div>
+      <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/hero_video.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]"></div>
         
-        <div className="relative z-10 text-left max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="relative z-10 text-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="max-w-2xl"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            className="flex flex-col items-center"
           >
-            <span className="inline-block py-1 px-3 rounded-full bg-primary/20 text-primary-foreground text-xs font-bold tracking-widest uppercase mb-6">
-              Ventes Privées : -50% sur les grandes marques
+            <span className="inline-block py-1 px-6 border border-primary/40 text-primary text-[10px] font-bold tracking-[0.3em] uppercase mb-8">
+              Exclusivité Privée
             </span>
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-foreground leading-[1.1]">
-              Le luxe <br/><span className="text-primary italic">à prix déstocké.</span>
+            <h1 className="font-serif text-6xl md:text-8xl lg:text-9xl font-bold mb-8 text-white leading-tight tracking-tighter">
+              L'EXCELLENCE <br/><span className="text-primary italic font-light">REDÉFINIE.</span>
             </h1>
-            <p className="font-sans text-lg md:text-xl mb-10 text-muted-foreground leading-relaxed max-w-lg">
-              Partenaire officiel des plus grandes enseignes (Darty, Boulanger, Fnac). 
-              Des produits premium neufs et garantis, jusqu'à -50% toute l'année.
+            <p className="font-sans text-sm md:text-base mb-12 text-gray-400 tracking-[0.2em] uppercase max-w-xl">
+              Dyson & GHD : L'innovation technologique au service de votre beauté. Jusqu'à -50%.
             </p>
             <Link href="/catalog">
-              <Button size="lg" className="rounded-full px-8 py-6 text-base font-semibold shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/40 hover:-translate-y-1 transition-all duration-300">
-                Voir les offres
+              <Button size="lg" className="rounded-none bg-white text-black hover:bg-primary hover:text-white px-12 py-8 text-xs font-bold tracking-[0.3em] uppercase transition-all duration-500">
+                Découvrir la collection
               </Button>
             </Link>
           </motion.div>
         </div>
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-primary to-transparent"></div>
+        </div>
       </section>
 
       {/* USPs Section */}
-      <section className="py-20 bg-white">
+      <section className="py-32 bg-black border-y border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground">Pourquoi nous choisir ?</h2>
-            <div className="w-24 h-1 bg-primary mx-auto mt-6 rounded-full"></div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-24">
             {[
-              { icon: ShieldCheck, title: "100% Authentique", desc: "Tous nos produits proviennent de marques certifiées et vérifiées." },
-              { icon: Clock, title: "Stock Limité", desc: "Des prix exclusifs dus à nos faibles quantités en déstockage." },
-              { icon: Zap, title: "Expédition Rapide", desc: "Livraison sécurisée sous 48/72h pour toute commande en France." }
+              { icon: ShieldCheck, title: "AUTHENTICITÉ GARANTIE", desc: "Produits scellés, provenance Darty & Boulanger." },
+              { icon: Clock, title: "SÉLECTION LIMITÉE", desc: "Pièces rares en déstockage exclusif." },
+              { icon: Zap, title: "LIVRAISON PRESTIGE", desc: "Expédition prioritaire sous 48h dans toute l'Europe." }
             ].map((feature, i) => (
               <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.2 }}
+                transition={{ delay: i * 0.3 }}
                 key={i} 
-                className="bg-secondary/10 rounded-3xl p-8 text-center hover:bg-secondary/20 transition-colors border border-border/50"
+                className="text-center group"
               >
-                <div className="w-16 h-16 bg-primary/20 text-primary rounded-2xl flex items-center justify-center mx-auto mb-6 rotate-3">
-                  <feature.icon className="w-8 h-8" />
+                <div className="w-12 h-12 text-primary mx-auto mb-8 transition-transform duration-500 group-hover:scale-110">
+                  <feature.icon className="w-full h-full stroke-[1px]" />
                 </div>
-                <h3 className="font-serif text-xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.desc}</p>
+                <h3 className="font-serif text-xs font-bold tracking-[0.4em] mb-4 text-white uppercase">{feature.title}</h3>
+                <p className="text-[10px] tracking-[0.2em] uppercase text-gray-500 leading-loose">{feature.desc}</p>
               </motion.div>
             ))}
           </div>
