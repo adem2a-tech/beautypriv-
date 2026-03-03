@@ -29,13 +29,14 @@ export function Home() {
             className="max-w-2xl"
           >
             <span className="inline-block py-1 px-3 rounded-full bg-primary/20 text-primary-foreground text-xs font-bold tracking-widest uppercase mb-6">
-              Déstockage Premium
+              Ventes Privées : -50% sur les grandes marques
             </span>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-foreground leading-[1.1]">
-              Le luxe <br/><span className="text-primary italic">à prix privé.</span>
+              Le luxe <br/><span className="text-primary italic">à prix déstocké.</span>
             </h1>
             <p className="font-sans text-lg md:text-xl mb-10 text-muted-foreground leading-relaxed max-w-lg">
-              Des produits premium en déstockage, sélectionnés avec la plus grande exigence pour une beauté accessible.
+              Partenaire officiel des plus grandes enseignes (Darty, Boulanger, Fnac). 
+              Des produits premium neufs et garantis, jusqu'à -50% toute l'année.
             </p>
             <Link href="/catalog">
               <Button size="lg" className="rounded-full px-8 py-6 text-base font-semibold shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/40 hover:-translate-y-1 transition-all duration-300">

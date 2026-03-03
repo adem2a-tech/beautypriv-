@@ -22,8 +22,15 @@ export function Navbar() {
           
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="font-serif text-2xl lg:text-3xl font-bold tracking-tight text-foreground hover:text-primary transition-colors">
-              Beauty Privé
+            <Link href="/" className="flex items-center gap-2 group">
+              <img 
+                src="/beauty_prive_logo.png" 
+                alt="Beauty Privé" 
+                className="h-12 w-auto object-contain transition-transform group-hover:scale-105" 
+              />
+              <span className="hidden sm:block font-serif text-xl font-bold tracking-tight text-foreground">
+                Beauty Privé
+              </span>
             </Link>
           </div>
 
