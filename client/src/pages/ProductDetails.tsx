@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
 import { useCart } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
-import { ShieldCheck, Truck, RefreshCw, ShoppingBag, Star, AlertTriangle } from "lucide-react";
+import { ShieldCheck, Truck, RefreshCw, ShoppingBag, Star, AlertTriangle, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function ProductDetails() {

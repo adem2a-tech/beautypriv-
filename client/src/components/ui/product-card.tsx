@@ -49,11 +49,14 @@ export function ProductCard({ product }: ProductCardProps) {
             <span className="bg-primary/90 text-white text-[9px] font-bold px-4 py-1 uppercase tracking-[0.2em] backdrop-blur-sm">
               Luxury Deal
             </span>
-          </div>            {discount > 0 && (
-              <span className="bg-destructive text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md w-fit">
+          </div>
+          {discount > 0 && (
+            <div className="absolute top-4 right-4">
+              <span className="bg-destructive text-white text-[10px] font-bold px-3 py-1 uppercase tracking-wider shadow-md">
                 -{discount}%
               </span>
-            )}
+            </div>
+          )}
           </div>
           
           {/* Quick Add Button - fades in on hover for desktop */}
