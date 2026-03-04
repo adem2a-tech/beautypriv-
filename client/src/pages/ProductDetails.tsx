@@ -232,15 +232,15 @@ export function ProductDetails() {
                 {product.stock === 0 ? "Rupture de stock" : "Ajouter au panier"}
               </Button>
 
-              {/* Garanties — police simple pour lisibilité, espacement mobile */}
-              <div className="font-sans grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 p-4 sm:p-5 rounded-xl bg-card border border-border">
+              {/* Garanties — écritures simples */}
+              <div className="font-sans font-normal grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 p-4 sm:p-5 rounded-xl bg-card border border-border">
                 <div className="flex items-start gap-3">
                   <div className="bg-primary/10 p-2 rounded-lg text-primary shrink-0">
                     <Truck className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-sm text-foreground">Livraison 48/72h</h4>
-                    <p className="text-xs text-foreground/80 mt-0.5">Expédition rapide</p>
+                    <p className="text-sm text-foreground font-medium">Livraison 48/72h</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Expédition rapide</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -248,8 +248,8 @@ export function ProductDetails() {
                     <ShieldCheck className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-sm text-foreground">Paiement sécurisé</h4>
-                    <p className="text-xs text-foreground/80 mt-0.5">100% authentique</p>
+                    <p className="text-sm text-foreground font-medium">Paiement sécurisé</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">100% authentique</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 sm:col-span-2">
@@ -257,8 +257,8 @@ export function ProductDetails() {
                     <RefreshCw className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-sm text-foreground">Garantie 14 jours</h4>
-                    <p className="text-xs text-foreground/80 mt-0.5">Satisfait ou remboursé</p>
+                    <p className="text-sm text-foreground font-medium">Garantie 14 jours</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Satisfait ou remboursé</p>
                   </div>
                 </div>
               </div>
