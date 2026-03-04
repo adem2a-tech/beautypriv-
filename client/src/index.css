@@ -271,4 +271,12 @@
   .scroll-touch {
     -webkit-overflow-scrolling: touch;
   }
+
+  /* Safe area pour encoche / barre iOS Android */
+  .safe-area-pb {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .safe-area-pt {
+    padding-top: env(safe-area-inset-top, 0);
+  }
 }

@@ -23,10 +23,11 @@ import { Checkout } from "@/pages/Checkout";
 import { Compte } from "@/pages/Compte";
 import { OptionsLivraison } from "@/pages/OptionsLivraison";
 import { CommandeConfirmee } from "@/pages/CommandeConfirmee";
-import { CGV, Refund, Legal, Contact, FAQ } from "@/pages/StaticPages";
+import { CGV, Refund, Legal, Contact, FAQ, Cookies } from "@/pages/StaticPages";
 import { useEffect } from "react";
 import { useAccount } from "@/hooks/use-account";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { CookieConsent } from "@/components/layout/CookieConsent";
 
 function ProductDetailsWithBoundary() {
   return (
@@ -63,6 +64,7 @@ function Router() {
       <Route path="/cgv" component={CGV} />
       <Route path="/refund" component={Refund} />
       <Route path="/legal" component={Legal} />
+      <Route path="/cookies" component={Cookies} />
       <Route path="/contact" component={Contact} />
       <Route path="/faq" component={FAQ} />
       
@@ -98,6 +100,7 @@ function App() {
           </div>
         </div>
         <Toaster />
+        <CookieConsent />
       </TooltipProvider>
     </QueryClientProvider>
   );

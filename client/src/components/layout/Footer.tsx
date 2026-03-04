@@ -43,6 +43,7 @@ export function Footer() {
               <li><Link href="/cgv" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300 font-light">CGV</Link></li>
               <li><Link href="/refund" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300 font-light">Politique de Remboursement</Link></li>
               <li><Link href="/legal" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300 font-light">Mentions Légales</Link></li>
+              <li><Link href="/cookies" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300 font-light">Cookies</Link></li>
             </ul>
           </div>
 

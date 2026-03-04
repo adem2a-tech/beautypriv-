@@ -52,6 +52,25 @@ export function Legal() {
   );
 }
 
+export function Cookies() {
+  return (
+    <PageContainer title="Politique de Cookies">
+      <p className="text-lg font-medium text-foreground mb-6">Beauty Privé utilise des cookies pour améliorer votre expérience, la sécurité du site et le bon fonctionnement des services.</p>
+      <h2>Qu'est-ce qu'un cookie ?</h2>
+      <p>Un cookie est un petit fichier texte déposé sur votre appareil (ordinateur, tablette, smartphone) lors de la visite d'un site. Il permet de mémoriser vos préférences, de sécuriser la navigation et d'analyser l'usage du site.</p>
+      <h2>Cookies utilisés</h2>
+      <p><strong>Cookies essentiels :</strong> nécessaires au fonctionnement du site (panier, session, préférence de consentement). Ils ne peuvent pas être désactivés.</p>
+      <p><strong>Cookies de préférences :</strong> mémorisent vos choix (langue, consentement aux cookies) pour une durée d'un an.</p>
+      <h2>Vos choix</h2>
+      <p>Lors de votre première visite, vous pouvez accepter ou refuser les cookies via le bandeau affiché en bas de la page. Votre choix est enregistré et un cookie technique est déposé pour mémoriser votre préférence.</p>
+      <h2>Gestion des cookies</h2>
+      <p>Vous pouvez à tout moment modifier vos préférences via les paramètres de votre navigateur (Android, iOS, Chrome, Safari, Firefox, etc.). La suppression des cookies peut limiter certaines fonctionnalités du site.</p>
+      <h2>Contact</h2>
+      <p>Pour toute question relative aux cookies : contact@beautyprive.fr</p>
+    </PageContainer>
+  );
+}
+
 export function Contact() {
   return (
     <PageContainer title="Nous Contacter">
