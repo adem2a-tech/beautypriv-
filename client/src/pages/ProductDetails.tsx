@@ -232,15 +232,15 @@ export function ProductDetails() {
                 {product.stock === 0 ? "Rupture de stock" : "Ajouter au panier"}
               </Button>
 
-              {/* Garanties — écritures simples */}
-              <div className="font-sans font-normal grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 p-4 sm:p-5 rounded-xl bg-card border border-border">
+              {/* Garanties — écriture simple, sans serif */}
+              <div className="font-sans grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 p-4 sm:p-5 rounded-xl bg-card border border-border text-foreground">
                 <div className="flex items-start gap-3">
                   <div className="bg-primary/10 p-2 rounded-lg text-primary shrink-0">
                     <Truck className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-sm text-foreground font-medium">Livraison 48/72h</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">Expédition rapide</p>
+                    <p className="font-medium text-sm text-foreground">Livraison 48/72h</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">Expédition rapide</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -248,8 +248,8 @@ export function ProductDetails() {
                     <ShieldCheck className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-sm text-foreground font-medium">Paiement sécurisé</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">100% authentique</p>
+                    <p className="font-medium text-sm text-foreground">Paiement sécurisé</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">100% authentique</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 sm:col-span-2">
@@ -257,8 +257,8 @@ export function ProductDetails() {
                     <RefreshCw className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-sm text-foreground font-medium">Garantie 14 jours</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">Satisfait ou remboursé</p>
+                    <p className="font-medium text-sm text-foreground">Garantie 14 jours</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">Satisfait ou remboursé</p>
                   </div>
                 </div>
               </div>
@@ -266,6 +266,26 @@ export function ProductDetails() {
           </div>
         </div>
       </div>
+
+      {/* Barre fixe Ajouter au panier — au-dessus de la barre promo, toujours visible */}
+      <div className="fixed bottom-20 md:bottom-24 left-0 right-0 z-30 flex items-center justify-between gap-4 px-4 py-3 bg-card/98 backdrop-blur-sm border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)] md:py-4 md:px-6">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="font-bold text-lg text-primary tabular-nums">{formatPrice(product.price)}</span>
+          {product.stock > 0 && (
+            <span className="text-muted-foreground text-sm">× {quantity}</span>
+          )}
+        </div>
+        <Button
+          size="lg"
+          className="shrink-0 rounded-xl px-6 py-6 font-semibold bg-primary text-primary-foreground hover:bg-primary/90 touch-manipulation"
+          onClick={handleAddToCart}
+          disabled={product.stock === 0}
+        >
+          <ShoppingBag className="w-5 h-5 mr-2" />
+          {product.stock === 0 ? "Rupture de stock" : "Ajouter au panier"}
+        </Button>
+      </div>
+      <div className="h-24 md:h-28" aria-hidden />
     </div>
   );
 }
