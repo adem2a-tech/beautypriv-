@@ -20,6 +20,7 @@ export function ProductDetails() {
   const { data: reviews } = useProductReviews(productId);
 
   const addItem = useCart((state) => state.addItem);
+  const cartItemCount = useCart((state) => state.getItemCount());
   const { toast } = useToast();
 
   if (isLoading) {
@@ -267,25 +268,24 @@ export function ProductDetails() {
         </div>
       </div>
 
-      {/* Barre fixe Ajouter au panier — au-dessus de la barre promo, toujours visible */}
-      <div className="fixed bottom-20 md:bottom-24 left-0 right-0 z-30 flex items-center justify-between gap-4 px-4 py-3 bg-card/98 backdrop-blur-sm border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)] md:py-4 md:px-6">
-        <div className="flex items-center gap-2 min-w-0">
-          <span className="font-bold text-lg text-primary tabular-nums">{formatPrice(product.price)}</span>
-          {product.stock > 0 && (
-            <span className="text-muted-foreground text-sm">× {quantity}</span>
+      {/* Petit accès panier en bas à droite — synchro avec le panier navbar, "Terminer le paiement" */}
+      <Link
+        href="/cart"
+        className="fixed bottom-20 md:bottom-24 right-4 md:right-6 z-30 flex flex-col items-center gap-1 p-3 rounded-2xl bg-card/95 backdrop-blur-sm border border-border shadow-lg hover:shadow-xl hover:bg-card transition-all touch-manipulation min-w-[56px]"
+        aria-label={`Terminer le paiement, ${cartItemCount} article${cartItemCount !== 1 ? "s" : ""} au panier`}
+      >
+        <span className="relative inline-flex">
+          <ShoppingBag className="w-6 h-6 text-primary" strokeWidth={1.5} aria-hidden />
+          {cartItemCount > 0 && (
+            <span className="absolute -top-1.5 -right-1.5 bg-primary text-primary-foreground text-[10px] font-bold min-w-[16px] h-4 rounded-full flex items-center justify-center">
+              {cartItemCount}
+            </span>
           )}
-        </div>
-        <Button
-          size="lg"
-          className="shrink-0 rounded-xl px-6 py-6 font-semibold bg-primary text-primary-foreground hover:bg-primary/90 touch-manipulation"
-          onClick={handleAddToCart}
-          disabled={product.stock === 0}
-        >
-          <ShoppingBag className="w-5 h-5 mr-2" />
-          {product.stock === 0 ? "Rupture de stock" : "Ajouter au panier"}
-        </Button>
-      </div>
-      <div className="h-24 md:h-28" aria-hidden />
+        </span>
+        <span className="text-[10px] font-semibold text-foreground/90 text-center leading-tight">
+          Terminer le paiement
+        </span>
+      </Link>
     </div>
   );
 }
