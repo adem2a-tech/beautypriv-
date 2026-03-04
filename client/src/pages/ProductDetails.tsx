@@ -51,7 +51,7 @@ export function ProductDetails() {
   }
 
   const discount = Math.round((1 - product.price / product.originalPrice) * 100);
-  const reviewCount = reviews?.length ?? 12;
+  const reviewLabel = reviews && reviews.length > 0 ? `${reviews.length} avis` : "+1 200 avis";
 
   const handleAddToCart = () => {
     addItem(product, quantity);
@@ -123,7 +123,7 @@ export function ProductDetails() {
                   ))}
                 </div>
                 <span className="text-sm text-muted-foreground font-medium">
-                  {reviewCount} avis · 4,9/5
+                  4,9/5 · {reviewLabel}
                 </span>
               </div>
               <div className="mb-5">

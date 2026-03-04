@@ -93,20 +93,27 @@ async function seed() {
     },
   ]).returning();
 
-  await db.insert(reviews).values([
-    {
-      productId: seededProducts[0].id,
-      customerName: "Léa R.",
-      rating: 5,
-      comment: "Incroyable, le Airwrap à ce prix là c'est une affaire de fou. Produit authentique vérifié !"
-    },
-    {
-      productId: seededProducts[1].id,
-      customerName: "Sarah J.",
-      rating: 5,
-      comment: "Qualité GHD au rendez-vous. Livraison Darty ultra rapide."
-    }
-  ]);
+  const reviewTemplates = [
+    { customerName: "Léa R.", rating: 5, comment: "Incroyable à ce prix, produit authentique vérifié. Livraison rapide !" },
+    { customerName: "Sarah J.", rating: 5, comment: "Qualité au rendez-vous. Livraison ultra rapide, je recommande." },
+    { customerName: "Marie L.", rating: 5, comment: "Reçu en parfait état, livraison soignée. Une équipe sérieuse." },
+    { customerName: "Thomas B.", rating: 5, comment: "Prix imbattables, suivi rassurant. J'ai commandé en toute confiance." },
+    { customerName: "Camille D.", rating: 5, comment: "Produit neuf, scellé. Authenticité garantie, très satisfaite." },
+    { customerName: "Julie M.", rating: 4, comment: "Très bon rapport qualité-prix. Petit délai de livraison mais nickel." },
+    { customerName: "Sophie K.", rating: 5, comment: "Déjà ma 2e commande. Service client réactif, produits conformes." },
+    { customerName: "Nathalie P.", rating: 5, comment: "Colis bien emballé, facture fournie. Achat sans stress." },
+  ];
+
+  const reviewsToInsert = seededProducts.flatMap((product) =>
+    reviewTemplates.map((r) => ({
+      productId: product.id,
+      customerName: r.customerName,
+      rating: r.rating,
+      comment: r.comment,
+    }))
+  );
+
+  await db.insert(reviews).values(reviewsToInsert);
 
   console.log("Database seeded successfully with Dyson/Premium products");
   process.exit(0);

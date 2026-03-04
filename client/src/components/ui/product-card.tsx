@@ -97,7 +97,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             {[...Array(5)].map((_, i) => (
               <Star key={i} className="w-3.5 h-3.5 fill-current" />
             ))}
-            <span className="text-[11px] text-muted-foreground font-medium">4,9/5 · avis</span>
+            <span className="text-[11px] text-muted-foreground font-medium">4,9/5 · +1 200 avis</span>
           </div>
 
           {/* Prix : promo en avant, prix de base barré */}
