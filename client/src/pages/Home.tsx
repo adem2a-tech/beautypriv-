@@ -233,7 +233,7 @@ export function Home() {
               <span className="text-muted-foreground text-xs font-medium">· Avis vérifiés</span>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 overflow-x-auto md:overflow-visible pb-4 md:pb-0 snap-x md:snap-none scroll-smooth">
+          <div className="scroll-touch grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 overflow-x-auto md:overflow-visible pb-4 md:pb-0 snap-x snap-mandatory md:snap-none scroll-smooth touch-manipulation [scroll-padding-inline:1rem] md:[scroll-padding-inline:0]">
             {[
               { name: "Marie L.", city: "Lyon", text: "Dyson reçu en parfait état, livraison ultra rapide. Je recommande en toute confiance.", date: "Il y a 2 semaines" },
               { name: "Thomas B.", city: "Paris", text: "Prix imbattables, suivi WhatsApp rassurant. Une équipe sérieuse et réactive.", date: "Il y a 1 mois" },

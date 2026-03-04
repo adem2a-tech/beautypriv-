@@ -43,13 +43,14 @@ export function Catalog() {
 
         {/* Onglets catégories + résultat */}
         <div className="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4 mb-10 py-4 px-0 md:px-4 rounded-xl bg-card border border-border/80">
-          <div className="flex items-center w-full md:w-auto overflow-x-auto pb-2 md:pb-0 gap-2 hide-scrollbar">
+          <div className="scroll-touch flex items-center w-full md:w-auto overflow-x-auto pb-2 md:pb-0 gap-2 hide-scrollbar snap-x snap-mandatory md:snap-none scroll-smooth touch-manipulation">
             <Button
               variant={activeCategory === null ? "default" : "outline"}
               className={
-                activeCategory === null
+                "shrink-0 snap-center touch-manipulation min-h-[44px] " +
+                (activeCategory === null
                   ? "rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 font-medium"
-                  : "rounded-lg border-border text-muted-foreground hover:text-foreground hover:border-primary/40 bg-transparent"
+                  : "rounded-lg border-border text-muted-foreground hover:text-foreground hover:border-primary/40 bg-transparent")
               }
               onClick={() => setActiveCategory(null)}
             >
@@ -60,9 +61,10 @@ export function Catalog() {
                 key={cat}
                 variant={activeCategory === cat ? "default" : "outline"}
                 className={
-                  activeCategory === cat
+                  "shrink-0 snap-center touch-manipulation min-h-[44px] " +
+                  (activeCategory === cat
                     ? "rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 font-medium"
-                    : "rounded-lg border-border text-muted-foreground hover:text-foreground hover:border-primary/40 bg-transparent"
+                    : "rounded-lg border-border text-muted-foreground hover:text-foreground hover:border-primary/40 bg-transparent")
                 }
                 onClick={() => setActiveCategory(cat)}
               >

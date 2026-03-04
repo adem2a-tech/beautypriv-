@@ -24,8 +24,7 @@ import { Compte } from "@/pages/Compte";
 import { OptionsLivraison } from "@/pages/OptionsLivraison";
 import { CommandeConfirmee } from "@/pages/CommandeConfirmee";
 import { CGV, Refund, Legal, Contact, FAQ } from "@/pages/StaticPages";
-import { IntroGate, getIntroSeen } from "@/pages/IntroGate";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useAccount } from "@/hooks/use-account";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
@@ -75,22 +74,11 @@ function Router() {
 }
 
 function App() {
-  const [showIntro, setShowIntro] = useState(true);
   const hydrateAccount = useAccount((s) => s.hydrate);
-
-  useEffect(() => {
-    if (getIntroSeen()) setShowIntro(false);
-  }, []);
 
   useEffect(() => {
     hydrateAccount();
   }, [hydrateAccount]);
-
-  if (showIntro) {
-    return (
-      <IntroGate onEnter={() => setShowIntro(false)} />
-    );
-  }
 
   return (
     <QueryClientProvider client={queryClient}>

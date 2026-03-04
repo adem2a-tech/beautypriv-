@@ -93,6 +93,21 @@
     font-weight: 450;
     letter-spacing: 0.03em;
     line-height: 1.65;
+    -webkit-tap-highlight-color: hsl(350 32% 52% / 0.12);
+    touch-action: manipulation;
+  }
+
+  /* Mobile : scroll fluide et snap sur les bandeaux horizontaux */
+  @media (max-width: 768px) {
+    .snap-scroll-mobile {
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 1rem;
+    }
+    .snap-scroll-mobile > * {
+      scroll-snap-align: center;
+      scroll-snap-stop: normal;
+    }
   }
 
   /* Bloc récap panier / paiement : dégradé rose très doux */
@@ -245,5 +260,15 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+  }
+
+  /* Boutons / liens : pas de délai tactile sur mobile */
+  button, a[href], [role="button"] {
+    touch-action: manipulation;
+  }
+
+  /* Scroll horizontal fluide iOS */
+  .scroll-touch {
+    -webkit-overflow-scrolling: touch;
   }
 }
