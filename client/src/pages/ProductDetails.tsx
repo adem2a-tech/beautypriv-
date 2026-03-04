@@ -268,21 +268,21 @@ export function ProductDetails() {
         </div>
       </div>
 
-      {/* Petit accès panier en bas à droite — synchro avec le panier navbar, "Terminer le paiement" */}
+      {/* Accès panier en bas, centré et agrandi — synchro avec le panier navbar */}
       <Link
         href="/cart"
-        className="fixed bottom-20 md:bottom-24 right-4 md:right-6 z-30 flex flex-col items-center gap-1 p-3 rounded-2xl bg-card/95 backdrop-blur-sm border border-border shadow-lg hover:shadow-xl hover:bg-card transition-all touch-manipulation min-w-[56px]"
+        className="fixed bottom-20 md:bottom-24 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-card/95 backdrop-blur-sm border-2 border-primary/30 shadow-xl hover:shadow-2xl hover:bg-card transition-all touch-manipulation min-w-[140px]"
         aria-label={`Terminer le paiement, ${cartItemCount} article${cartItemCount !== 1 ? "s" : ""} au panier`}
       >
         <span className="relative inline-flex">
-          <ShoppingBag className="w-6 h-6 text-primary" strokeWidth={1.5} aria-hidden />
+          <ShoppingBag className="w-8 h-8 text-primary" strokeWidth={1.5} aria-hidden />
           {cartItemCount > 0 && (
-            <span className="absolute -top-1.5 -right-1.5 bg-primary text-primary-foreground text-[10px] font-bold min-w-[16px] h-4 rounded-full flex items-center justify-center">
+            <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold min-w-[20px] h-5 rounded-full flex items-center justify-center">
               {cartItemCount}
             </span>
           )}
         </span>
-        <span className="text-[10px] font-semibold text-foreground/90 text-center leading-tight">
+        <span className="text-sm font-semibold text-foreground text-center leading-tight">
           Terminer le paiement
         </span>
       </Link>
