@@ -50,8 +50,9 @@ const PRODUCT_GALLERIES: Record<string, string[]> = {
   ],
 };
 
-export function getProductGallery(productName: string, fallbackImageUrl: string): string[] {
+export function getProductGallery(productName: string, fallbackImageUrl?: string): string[] {
   const gallery = PRODUCT_GALLERIES[productName];
-  if (gallery && gallery.length > 0) return gallery;
-  return [fallbackImageUrl];
+  if (gallery && gallery.length > 0) return gallery.filter(Boolean);
+  const fallback = fallbackImageUrl && fallbackImageUrl.trim() ? fallbackImageUrl : "";
+  return fallback ? [fallback] : [];
 }

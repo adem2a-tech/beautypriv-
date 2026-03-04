@@ -27,13 +27,22 @@ import { CGV, Refund, Legal, Contact, FAQ } from "@/pages/StaticPages";
 import { IntroGate, getIntroSeen } from "@/pages/IntroGate";
 import { useState, useEffect } from "react";
 import { useAccount } from "@/hooks/use-account";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+
+function ProductDetailsWithBoundary() {
+  return (
+    <ErrorBoundary>
+      <ProductDetails />
+    </ErrorBoundary>
+  );
+}
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/catalog" component={Catalog} />
-      <Route path="/product/:id" component={ProductDetails} />
+      <Route path="/product/:id" component={ProductDetailsWithBoundary} />
       <Route path="/cart" component={Cart} />
       <Route path="/compte" component={Compte} />
       <Route path="/checkout" component={Checkout} />

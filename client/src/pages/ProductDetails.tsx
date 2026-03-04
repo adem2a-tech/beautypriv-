@@ -53,8 +53,9 @@ export function ProductDetails() {
     );
   }
 
-  const discount = Math.round((1 - product.price / product.originalPrice) * 100);
-  const reviewLabel = reviews && reviews.length > 0 ? `${reviews.length} avis` : "+1 200 avis";
+  const originalPrice = Number(product.originalPrice) || 1;
+  const discount = Math.round((1 - (Number(product.price) || 0) / originalPrice) * 100);
+  const reviewLabel = reviews && Array.isArray(reviews) && reviews.length > 0 ? `${reviews.length} avis` : "+1 200 avis";
 
   const handleAddToCart = () => {
     addItem(product, quantity);
@@ -65,12 +66,14 @@ export function ProductDetails() {
     });
   };
 
-  const productImages = getProductGallery(product.name, product.imageUrl);
-  const hasMultipleImages = productImages.length > 1;
+  const rawImages = getProductGallery(String(product.name ?? ""), product.imageUrl);
+  const productImages = Array.isArray(rawImages) ? rawImages.filter((url): url is string => Boolean(url)) : [];
+  const safeImages = productImages.length > 0 ? productImages : (product.imageUrl ? [product.imageUrl] : []);
+  const hasMultipleImages = safeImages.length > 1;
   const goExpandedPrev = () =>
-    setExpandedImageIndex((i) => (i === 0 ? productImages.length - 1 : i - 1));
+    setExpandedImageIndex((i) => (i === 0 ? safeImages.length - 1 : i - 1));
   const goExpandedNext = () =>
-    setExpandedImageIndex((i) => (i === productImages.length - 1 ? 0 : i + 1));
+    setExpandedImageIndex((i) => (i === safeImages.length - 1 ? 0 : i + 1));
 
   const breadcrumbItems = [
     { label: "Accueil", href: "/" },
@@ -94,11 +97,11 @@ export function ProductDetails() {
             >
               <div className="absolute inset-[2px] rounded-none overflow-hidden bg-card/95">
                 <ImageSlider
-                  images={productImages}
+                  images={safeImages}
                   interval={5000}
                   className="w-full h-full"
                   onExpandClick={(i) => {
-                    setExpandedImageIndex(i);
+                    setExpandedImageIndex(Math.max(0, Math.min(i, safeImages.length - 1)));
                     setImageExpanded(true);
                   }}
                 />
@@ -282,7 +285,7 @@ export function ProductDetails() {
       </div>
 
       {/* Overlay plein écran : image agrandie + croix pour revenir */}
-      {imageExpanded && (
+      {imageExpanded && safeImages.length > 0 && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/95"
           role="dialog"
@@ -319,11 +322,11 @@ export function ProductDetails() {
             </>
           )}
           <div onClick={(e) => e.stopPropagation()}>
-            <img
-              src={productImages[expandedImageIndex]}
-              alt=""
-              className="max-w-[90vw] max-h-[90vh] w-auto h-auto object-contain"
-            />
+          <img
+            src={safeImages[expandedImageIndex] ?? safeImages[0] ?? ""}
+            alt=""
+            className="max-w-[90vw] max-h-[90vh] w-auto h-auto object-contain"
+          />
           </div>
         </div>
       )}

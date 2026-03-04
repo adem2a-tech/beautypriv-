@@ -1,6 +1,6 @@
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Expand } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ImageSliderProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -10,7 +10,7 @@ interface ImageSliderProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const ImageSlider = React.forwardRef<HTMLDivElement, ImageSliderProps>(
-  ({ images, interval = 5000, className, ...props }, ref) => {
+  ({ images, interval = 5000, className, onExpandClick, ...props }, ref) => {
     const [currentIndex, setCurrentIndex] = React.useState(0);
 
     React.useEffect(() => {
@@ -46,7 +46,7 @@ const ImageSlider = React.forwardRef<HTMLDivElement, ImageSliderProps>(
           <AnimatePresence initial={false}>
             <motion.img
               key={currentIndex}
-              src={images[currentIndex]}
+              src={images[currentIndex] ?? images[0] ?? ""}
               alt={`Slide ${currentIndex + 1}`}
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -59,7 +59,7 @@ const ImageSlider = React.forwardRef<HTMLDivElement, ImageSliderProps>(
           {/* Halo rose sur les côtés */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-primary/18 via-transparent to-primary/18 mix-blend-multiply" />
 
-          {/* Bouton agrandir */}
+          {/* Bouton agrandir (SVG inline pour éviter tout souci de bundle) */}
           {onExpandClick && (
             <button
               type="button"
@@ -67,7 +67,7 @@ const ImageSlider = React.forwardRef<HTMLDivElement, ImageSliderProps>(
               className="absolute top-2 right-2 z-10 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center transition-colors duration-200 shadow-lg"
               aria-label="Agrandir l'image"
             >
-              <Expand className="w-5 h-5" strokeWidth={2} />
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
             </button>
           )}
 
