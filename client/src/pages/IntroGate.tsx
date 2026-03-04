@@ -33,17 +33,18 @@ export function IntroGate({ onEnter }: IntroGateProps) {
   return (
     <div className="fixed inset-0 z-[200] flex flex-col lg:flex-row bg-background">
       {/* Partie gauche : vidéo Dyson */}
-      <div className="relative w-full lg:w-[55%] h-[45vh] lg:h-full min-h-[280px] bg-black overflow-hidden">
+      <div className="relative w-full lg:w-[55%] h-[45vh] lg:h-full min-h-[280px] bg-black overflow-hidden isolate">
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover scale-[1.02]"
+          preload="metadata"
+          className="absolute top-0 left-0 w-full h-full object-cover"
         >
           <source src="/intro-dyson.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/25 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 bottom-0 w-full min-w-full bg-gradient-to-r from-black/65 via-black/25 to-transparent" style={{ left: 0 }} aria-hidden />
         {/* Badge Élu produit de l'année */}
         <div className="absolute top-4 right-4 w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden bg-white shadow-lg shadow-black/40 border border-white/70">
           <img

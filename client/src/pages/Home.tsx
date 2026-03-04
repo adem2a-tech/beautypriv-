@@ -14,18 +14,25 @@ export function Home() {
 
   return (
     <div className="flex flex-col w-full">
-      {/* Hero Section */}
-      <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/hero_video.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]"></div>
+      {/* Hero Section — full-bleed, overlay left:0 pour éviter décalage */}
+      <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden w-full isolate">
+        <div className="absolute top-0 left-0 right-0 bottom-0 w-full min-w-full h-full">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            className="absolute top-0 left-0 w-full h-full object-cover"
+          >
+            <source src="/hero_video.mp4" type="video/mp4" />
+          </video>
+          <div
+            className="absolute top-0 left-0 right-0 bottom-0 w-full min-w-full bg-black/60"
+            style={{ left: 0 }}
+            aria-hidden
+          />
+        </div>
 
         {/* Badge Élu Produit de l'Année */}
         <div className="absolute top-6 left-1/2 -translate-x-1/2 z-10" aria-hidden>
@@ -33,6 +40,8 @@ export function Home() {
             src="/images/elu-produit-annee.png"
             alt="Élu Produit de l'Année"
             className="h-12 w-auto object-contain md:h-16 drop-shadow-lg"
+            decoding="async"
+            fetchPriority="high"
           />
         </div>
 
