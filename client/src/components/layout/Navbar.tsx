@@ -23,12 +23,12 @@ export function Navbar() {
           
           {/* Marque — style luxe */}
           <Link href="/" className="flex-shrink-0 flex flex-col items-start group">
-            <span className="font-serif text-xl sm:text-2xl font-medium tracking-tight text-foreground leading-none">
+            <span className="font-serif text-2xl sm:text-2xl md:text-3xl font-medium tracking-tight text-foreground leading-none">
               Beauty
             </span>
             <span className="flex items-center gap-1.5 mt-0.5">
-              <span className="w-1 h-1 rounded-full bg-primary shrink-0" aria-hidden />
-              <span className="font-sans text-[10px] sm:text-xs font-medium tracking-[0.3em] text-foreground/80 uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" aria-hidden />
+              <span className="font-sans text-xs sm:text-xs font-medium tracking-[0.3em] text-foreground/80 uppercase">
                 Privé
               </span>
             </span>
