@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { type Product } from "@shared/schema";
@@ -17,9 +18,23 @@ const V16_IMAGE = "/images/dyson-v16-submarine-1.png";
 const SPOT_SCRUB_NAME = "Aspirateur robot laveur Dyson Spot+Scrub™ Ai";
 const SPOT_SCRUB_IMAGE = "/images/dyson-spot-scrub-1.png";
 
+const GHD_CHRONOS_NAME = "Lisseur GHD Chronos Noir à plaques classiques (plaques 26 mm)";
+const PLACEHOLDER_SVG = "data:image/svg+xml," + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260" fill="none"><rect width="200" height="260" fill="hsl(0,0%,92%)"/><text x="100" y="130" text-anchor="middle" font-family="sans-serif" font-size="14" fill="hsl(0,0%,55%)">GHD Chronos</text><text x="100" y="150" text-anchor="middle" font-family="sans-serif" font-size="11" fill="hsl(0,0%,65%)">Image à ajouter</text></svg>'
+);
+
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const addItem = useCart((state) => state.addItem);
   const { toast } = useToast();
+  const [imgError, setImgError] = useState(false);
+  const displaySrc =
+    imgError && product.name === GHD_CHRONOS_NAME
+      ? PLACEHOLDER_SVG
+      : product.name === V16_NAME
+        ? V16_IMAGE
+        : product.name === SPOT_SCRUB_NAME
+          ? SPOT_SCRUB_IMAGE
+          : product.imageUrl;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -52,11 +67,12 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       >
         <div className="relative aspect-[3/4] overflow-hidden bg-card border-b border-primary/20 rounded-none p-8 sm:p-4 md:p-0">
           <motion.img
-            src={product.name === V16_NAME ? V16_IMAGE : product.name === SPOT_SCRUB_NAME ? SPOT_SCRUB_IMAGE : product.imageUrl}
+            src={displaySrc}
             alt={product.name}
             className="w-full h-full object-contain object-center bg-muted/20 transition-transform duration-700 ease-out group-hover:scale-105"
             loading="lazy"
             decoding="async"
+            onError={() => product.name === GHD_CHRONOS_NAME && setImgError(true)}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-primary/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
           <div className="absolute top-4 left-4">

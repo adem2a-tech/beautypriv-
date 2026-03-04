@@ -47,8 +47,6 @@ const PRODUCT_GALLERIES: Record<string, string[]> = {
     "/images/ghd-chronos-noir-1.png",
     "/images/ghd-chronos-noir-2.png",
     "/images/ghd-chronos-noir-3.png",
-    "/images/ghd-chronos-noir-4.png",
-    "/images/ghd-chronos-noir-5.png",
   ],
 };
 
