@@ -1,30 +1,38 @@
-import { useParams } from "wouter";
+import { useState } from "react";
+import { useParams, Link } from "wouter";
 import { useProduct, useProductReviews } from "@/hooks/use-products";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
 import { useCart } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
-import { ShieldCheck, Truck, RefreshCw, ShoppingBag, Star, AlertTriangle, Clock } from "lucide-react";
+import { getProductGallery } from "@/lib/product-gallery";
+import { ImageSlider } from "@/components/ui/image-slider";
+import { PageBreadcrumb } from "@/components/layout/PageBreadcrumb";
+import { ShieldCheck, Truck, RefreshCw, ShoppingBag, Star, AlertTriangle, Clock, Minus, Plus } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function ProductDetails() {
   const { id } = useParams();
   const productId = parseInt(id || "0", 10);
-  
+  const [quantity, setQuantity] = useState(1);
+
   const { data: product, isLoading } = useProduct(productId);
   const { data: reviews } = useProductReviews(productId);
-  
+
   const addItem = useCart((state) => state.addItem);
   const { toast } = useToast();
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex gap-12 animate-pulse">
-        <div className="w-full lg:w-1/2 aspect-square bg-muted rounded-3xl"></div>
-        <div className="w-full lg:w-1/2 space-y-6 pt-8">
-          <div className="h-10 bg-muted rounded w-3/4"></div>
-          <div className="h-6 bg-muted rounded w-1/4"></div>
-          <div className="h-32 bg-muted rounded w-full"></div>
+      <div className="min-h-screen bg-background py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="h-5 w-64 bg-muted rounded mb-8" />
+        <div className="flex gap-12">
+          <div className="w-full lg:w-1/2 aspect-[4/5] bg-muted rounded-2xl animate-pulse" />
+          <div className="w-full lg:w-1/2 space-y-6 pt-0">
+            <div className="h-8 bg-muted rounded w-3/4" />
+            <div className="h-12 bg-muted rounded w-full" />
+            <div className="h-24 bg-muted rounded w-full" />
+          </div>
         </div>
       </div>
     );
@@ -35,139 +43,228 @@ export function ProductDetails() {
       <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
         <h2 className="font-serif text-4xl mb-4">Produit introuvable</h2>
         <p className="text-muted-foreground mb-8">Ce produit a peut-être été victime de son succès.</p>
+        <Link href="/catalog">
+          <Button variant="outline">Retour au catalogue</Button>
+        </Link>
       </div>
     );
   }
 
   const discount = Math.round((1 - product.price / product.originalPrice) * 100);
-  
+  const reviewCount = reviews?.length ?? 12;
+
   const handleAddToCart = () => {
-    addItem(product);
+    addItem(product, quantity);
     toast({
       title: "Ajouté au panier",
-      description: `${product.name} a été ajouté avec succès.`,
+      description: `${product.name} × ${quantity} ajouté avec succès.`,
       duration: 3000,
     });
   };
 
+  const breadcrumbItems = [
+    { label: "Accueil", href: "/" },
+    { label: "Catalogue", href: "/catalog" },
+    { label: product.category, href: "/catalog" },
+    { label: product.name },
+  ];
+
   return (
-    <div className="min-h-screen bg-background py-8 lg:py-16">
+    <div className="min-h-screen bg-background py-6 sm:py-8 lg:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
-          
-          {/* Images Section */}
-          <div className="w-full lg:w-1/2">
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-white border border-border shadow-md"
+        <PageBreadcrumb items={breadcrumbItems} />
+
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-14">
+          {/* Colonne gauche : image produit */}
+          <div className="w-full lg:w-[48%]">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="relative aspect-[3/4] max-h-[22vh] sm:max-h-[35vh] md:max-h-none sm:aspect-[4/5] rounded-none overflow-visible bg-transparent neon-rose-led hover:neon-rose-led-strong transition-all duration-300"
             >
-              <img 
-                src={product.imageUrl} 
-                alt={product.name} 
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute top-4 left-4">
-                <span className="bg-accent text-white text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider shadow-lg">
+              <div className="absolute inset-[2px] rounded-none overflow-hidden bg-card/95">
+                <ImageSlider
+                  images={getProductGallery(product.name, product.imageUrl)}
+                  interval={5000}
+                  className="w-full h-full"
+                />
+              </div>
+              <div className="absolute top-4 left-4 z-10">
+                <span className="bg-primary text-primary-foreground text-[10px] font-bold px-3 py-1.5 rounded-md uppercase tracking-wider shadow-md">
                   Offre Privée
                 </span>
               </div>
             </motion.div>
           </div>
 
-          {/* Details Section */}
-          <div className="w-full lg:w-1/2 flex flex-col">
+          {/* Colonne droite : infos produit — structure type boutique pro */}
+          <div className="w-full lg:w-[52%] flex flex-col">
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 16 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
+              transition={{ delay: 0.08 }}
+              className="flex flex-col"
             >
-              <div className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">
+              <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.2em] mb-2">
                 {product.category}
-              </div>
-              
-              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-4">
+              </p>
+              <p className="text-xs font-bold text-foreground uppercase tracking-wider mb-1">
+                {product.brand ?? "DYSON"}
+              </p>
+              <h1 className="product-title text-2xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-4">
                 {product.name}
               </h1>
-              
-              <div className="flex items-center space-x-4 mb-6">
-                <div className="flex text-accent">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
+
+              {/* Avis + note */}
+              <div className="flex items-center gap-2 mb-3">
+                <div className="flex text-primary">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-current" />
+                  ))}
                 </div>
-                <span className="text-sm text-muted-foreground underline cursor-pointer">
-                  {reviews?.length || 12} avis clients
+                <span className="text-sm text-muted-foreground font-medium">
+                  {reviewCount} avis · 4,9/5
+                </span>
+              </div>
+              <div className="mb-5">
+                <span className="inline-block bg-primary/10 text-primary text-[10px] font-bold px-3 py-1.5 rounded-md uppercase tracking-wider">
+                  Best-seller
                 </span>
               </div>
 
-              <div className="flex items-end space-x-4 mb-6 pb-6 border-b border-border">
-                <span className="text-4xl font-bold text-foreground">
-                  {formatPrice(product.price)}
-                </span>
-                <span className="text-xl text-muted-foreground line-through decoration-destructive mb-1">
+              {/* Description */}
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-4">
+                {product.description}
+              </p>
+
+              {/* Détails du produit — bloc pour tous les produits */}
+              <div className="font-sans mb-6 p-4 sm:p-5 rounded-xl bg-muted/40 border border-border">
+                <h3 className="text-xs font-bold text-foreground uppercase tracking-wider mb-3">Détails du produit</h3>
+                <dl className="space-y-2 text-sm">
+                  <div className="flex flex-wrap gap-x-2">
+                    <dt className="text-muted-foreground font-medium">Marque</dt>
+                    <dd className="text-foreground font-semibold">{product.brand ?? "Dyson"}</dd>
+                  </div>
+                  <div className="flex flex-wrap gap-x-2">
+                    <dt className="text-muted-foreground font-medium">Catégorie</dt>
+                    <dd className="text-foreground font-semibold">{product.category}</dd>
+                  </div>
+                  {product.partnership && (
+                    <div className="flex flex-wrap gap-x-2">
+                      <dt className="text-muted-foreground font-medium">Partenariat</dt>
+                      <dd className="text-foreground font-semibold">{product.partnership}</dd>
+                    </div>
+                  )}
+                </dl>
+              </div>
+
+              {/* Prix */}
+              <div className="flex flex-wrap items-baseline gap-3 mb-6 pb-6 border-b border-border">
+                <span className="text-base text-muted-foreground line-through">
                   {formatPrice(product.originalPrice)}
                 </span>
-                <span className="bg-destructive/10 text-destructive font-bold px-3 py-1 rounded-full text-sm mb-1">
-                  Économisez {discount}%
+                <span className="text-3xl md:text-4xl font-bold text-foreground tabular-nums">
+                  {formatPrice(product.price)}
+                </span>
+                <span className="bg-primary/15 text-primary font-bold px-2.5 py-1 rounded-md text-sm">
+                  −{discount}%
                 </span>
               </div>
 
-              <div className="mb-8">
-                {product.stock <= 10 ? (
-                  <div className="flex items-center text-destructive font-semibold bg-destructive/10 px-4 py-3 rounded-xl">
-                    <AlertTriangle className="w-5 h-5 mr-2" />
-                    Urgence : Plus que {product.stock} exemplaires en stock !
+              {/* Stock */}
+              <div className="mb-6">
+                {product.stock === 0 ? (
+                  <div className="flex items-center text-muted-foreground font-semibold bg-muted/50 px-4 py-2.5 rounded-lg text-sm">
+                    <Clock className="w-4 h-4 mr-2 shrink-0" />
+                    Actuellement en rupture de stock
+                  </div>
+                ) : product.stock <= 10 ? (
+                  <div className="flex items-center text-destructive font-semibold bg-destructive/10 px-4 py-2.5 rounded-lg text-sm">
+                    <AlertTriangle className="w-4 h-4 mr-2 shrink-0" />
+                    Plus que {product.stock} en stock
                   </div>
                 ) : (
-                  <div className="flex items-center text-orange-600 font-semibold bg-orange-50 px-4 py-3 rounded-xl">
-                    <Clock className="w-5 h-5 mr-2" />
-                    Stocks limités : Plus que {product.stock} exemplaires.
+                  <div className="flex items-center text-muted-foreground text-sm">
+                    <Clock className="w-4 h-4 mr-2 shrink-0" />
+                    En stock
                   </div>
                 )}
               </div>
 
-              <p className="text-muted-foreground leading-relaxed mb-10 text-lg">
-                {product.description}
-              </p>
+              {/* Quantité */}
+              {product.stock > 0 && (
+                <div className="mb-6">
+                  <label className="text-xs font-semibold text-foreground uppercase tracking-wider block mb-2">
+                    Quantité
+                  </label>
+                  <div className="inline-flex items-center rounded-lg border border-border bg-card overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                      className="p-3 min-h-[44px] min-w-[44px] flex items-center justify-center text-foreground hover:bg-muted transition-colors touch-manipulation"
+                      aria-label="Diminuer"
+                    >
+                      <Minus className="w-4 h-4" />
+                    </button>
+                    <span className="w-12 text-center font-semibold tabular-nums text-sm py-2">
+                      {quantity}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setQuantity((q) => Math.min(product.stock, q + 1))}
+                      className="p-3 min-h-[44px] min-w-[44px] flex items-center justify-center text-foreground hover:bg-muted transition-colors touch-manipulation"
+                      aria-label="Augmenter"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
 
-              <Button 
-                size="lg" 
-                className="w-full sm:w-auto px-12 py-7 text-lg rounded-2xl shadow-xl shadow-primary/30 hover:-translate-y-1 transition-all duration-300 mb-12"
+              {/* CTA principal */}
+              <Button
+                size="lg"
+                className="w-full sm:w-auto rounded-lg px-10 py-6 min-h-[48px] text-sm font-bold uppercase tracking-wider mb-4 touch-manipulation"
                 onClick={handleAddToCart}
+                disabled={product.stock === 0}
               >
-                <ShoppingBag className="w-6 h-6 mr-3" />
-                Ajouter au panier
+                <ShoppingBag className="w-5 h-5 mr-2" />
+                {product.stock === 0 ? "Rupture de stock" : "Ajouter au panier"}
               </Button>
 
-              {/* Benefits Section */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-white p-6 rounded-2xl border border-border">
-                <div className="flex items-start space-x-3">
-                  <div className="bg-primary/10 p-2 rounded-lg text-primary"><Truck className="w-5 h-5" /></div>
+              {/* Garanties — police simple pour lisibilité */}
+              <div className="font-sans grid grid-cols-1 sm:grid-cols-2 gap-4 p-5 rounded-xl bg-card border border-border">
+                <div className="flex items-start gap-3">
+                  <div className="bg-primary/10 p-2 rounded-lg text-primary shrink-0">
+                    <Truck className="w-4 h-4" />
+                  </div>
                   <div>
-                    <h4 className="font-semibold text-sm">Livraison 48/72h</h4>
-                    <p className="text-xs text-muted-foreground mt-1">Expédition rapide depuis nos entrepôts français.</p>
+                    <h4 className="font-semibold text-sm text-foreground">Livraison 48/72h</h4>
+                    <p className="text-xs text-foreground/80 mt-0.5">Expédition rapide</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <div className="bg-green-100 p-2 rounded-lg text-green-600"><ShieldCheck className="w-5 h-5" /></div>
+                <div className="flex items-start gap-3">
+                  <div className="bg-primary/10 p-2 rounded-lg text-primary shrink-0">
+                    <ShieldCheck className="w-4 h-4" />
+                  </div>
                   <div>
-                    <h4 className="font-semibold text-sm">Paiement sécurisé</h4>
-                    <p className="text-xs text-muted-foreground mt-1">Transactions cryptées via Stripe / Apple Pay.</p>
+                    <h4 className="font-semibold text-sm text-foreground">Paiement sécurisé</h4>
+                    <p className="text-xs text-foreground/80 mt-0.5">100% authentique</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-3 sm:col-span-2">
-                  <div className="bg-blue-100 p-2 rounded-lg text-blue-600"><RefreshCw className="w-5 h-5" /></div>
+                <div className="flex items-start gap-3 sm:col-span-2">
+                  <div className="bg-primary/10 p-2 rounded-lg text-primary shrink-0">
+                    <RefreshCw className="w-4 h-4" />
+                  </div>
                   <div>
-                    <h4 className="font-semibold text-sm">Garantie 14 jours</h4>
-                    <p className="text-xs text-muted-foreground mt-1">Satisfait ou remboursé. Retours simplifiés.</p>
+                    <h4 className="font-semibold text-sm text-foreground">Garantie 14 jours</h4>
+                    <p className="text-xs text-foreground/80 mt-0.5">Satisfait ou remboursé</p>
                   </div>
                 </div>
               </div>
-
             </motion.div>
           </div>
         </div>
-
       </div>
     </div>
   );

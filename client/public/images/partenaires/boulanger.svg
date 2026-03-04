@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 40" width="140" height="40" aria-hidden="true">
+  <ellipse cx="22" cy="20" rx="14" ry="16" fill="none" stroke="#FF6600" stroke-width="3"/>
+  <path d="M14 8 v24 M14 20 h14" fill="none" stroke="#FF6600" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="52" y="26" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FF6600">boulanger</text>
+</svg>

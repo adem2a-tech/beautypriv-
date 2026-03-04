@@ -5,7 +5,7 @@ function PageContainer({ title, children }: { title: string, children: React.Rea
     <div className="min-h-screen bg-background py-16">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="font-serif text-4xl md:text-5xl font-bold mb-10 text-foreground">{title}</h1>
-        <div className="prose prose-lg prose-headings:font-serif prose-headings:font-bold prose-a:text-primary prose-p:text-muted-foreground bg-white p-8 md:p-12 rounded-3xl border border-border shadow-sm">
+        <div className="prose prose-lg prose-headings:font-serif prose-headings:font-semibold prose-headings:tracking-tight prose-p:font-medium prose-p:tracking-wide prose-p:leading-relaxed prose-a:text-primary prose-p:text-muted-foreground bg-card p-8 md:p-12 rounded-3xl border-2 border-border shadow-lg shadow-black/[0.04]">
           {children}
         </div>
       </div>

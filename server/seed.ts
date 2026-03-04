@@ -2,7 +2,16 @@ import { db } from "./db";
 import { products, reviews } from "@shared/schema";
 import { eq } from "drizzle-orm";
 
+if (!process.env.DATABASE_URL) {
+  console.error("DATABASE_URL doit être défini. Créez un fichier .env avec DATABASE_URL=postgresql://...");
+  process.exit(1);
+}
+
 async function seed() {
+  if (!db) {
+    console.error("Connexion base de données indisponible.");
+    process.exit(1);
+  }
   const existingProducts = await db.select().from(products);
   if (existingProducts.length > 0) {
      await db.delete(reviews);
@@ -11,77 +20,77 @@ async function seed() {
 
   const seededProducts = await db.insert(products).values([
     {
-      name: "Dyson Airwrap Multi-styler Complete Long",
-      description: "Le boucleur iconique pour cheveux longs. Boucle, sculpte, lisse et maîtrise les cheveux rebelles. Sans chaleur extrême.",
+      name: "Multi-styler Dyson Airwrap i.d™ - cheveux bouclés à frisés (Soie Ambrée)",
+      description: "Des boucles simplifiées, personnalisées juste pour votre type de cheveu. Version Soie Ambrée dédiée aux cheveux bouclés à frisés : profil capillaire dans l'app My Dyson (raides, ondulés, bouclés, crépus) et réglages envoyés à l'appareil via Bluetooth. Coffret avec diffuseur, barillet boucles, brosses lissantes et volumisantes, peigne à dents larges, étui rigide et pochette de voyage.",
       category: "Soin & beauté",
       price: 29900,
       originalPrice: 59900,
-      stock: 8,
-      imageUrl: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=800",
+      stock: 5,
+      imageUrl: "/images/airwrap-id-soie-ambree-1.png",
       isFeatured: true,
       brand: "Dyson",
       partnership: "Darty",
     },
     {
-      name: "GHD Platinum+",
-      description: "Le lisseur intelligent qui prédit les besoins de vos cheveux. Technologie ultra-zone prédictive.",
+      name: "Multi-styler Dyson Airwrap i.d™ - cheveux bouclés à frisés (Bleu de Prusse/Cuivré)",
+      description: "Des boucles simplifiées, personnalisées juste pour vous. Version Bleu de Prusse et cuivré : corps bleu marine, accents cuivrés. Profil capillaire dans l'app My Dyson et réglages envoyés à l'appareil via Bluetooth. Coffret avec diffuseur, barillet boucles, brosses lissantes et volumisantes, étui Bleu de Prusse et pochette de voyage.",
       category: "Soin & beauté",
-      price: 14900,
-      originalPrice: 29900,
-      stock: 15,
-      imageUrl: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=800",
+      price: 29900,
+      originalPrice: 59900,
+      stock: 5,
+      imageUrl: "/images/airwrap-id-bleu-prusse-1.png",
       isFeatured: true,
-      brand: "GHD",
+      brand: "Dyson",
       partnership: "Darty",
     },
     {
-      name: "Airpods Max",
-      description: "L'équilibre parfait entre un son haute fidélité impressionnant et la magie intuitive des AirPods.",
-      category: "Accessoires",
-      price: 31400,
-      originalPrice: 62900,
+      name: "Dyson Airwrap Coanda 2x",
+      description: "Multistyle Coanda avec séchage lissant, barillets boucles 30 mm et 40 mm, brosses lissantes et volumisantes. Coffret complet avec étui. Connexion Bluetooth et app My Dyson pour personnaliser les temps de coiffure.",
+      category: "Soin & beauté",
+      price: 32499,
+      originalPrice: 64900,
+      stock: 6,
+      imageUrl: "/images/airwrap-coanda-2x-1.png",
+      isFeatured: true,
+      brand: "Dyson",
+      partnership: "Darty",
+    },
+    {
+      name: "Dyson Airwrap™ Complete Long Volumise",
+      description: "Sèche. Boucle. Sculpte. Lisse et maîtrise les cheveux rebelles. Sans dommages thermiques. Multistyle complet long avec barillets boucles, brosses lissantes et volumisantes, coffret avec étui.",
+      category: "Soin & beauté",
+      price: 54900,
+      originalPrice: 69900,
+      stock: 5,
+      imageUrl: "/images/dyson-airwrap-complete-long-1.png",
+      isFeatured: true,
+      brand: "Dyson",
+      partnership: "Darty",
+    },
+    {
+      name: "Aspirateur robot laveur Dyson Spot+Scrub™ Ai",
+      description: "Détecte et élimine les taches persistantes grâce à l'IA. Aspire et lave encore et encore, jusqu'à disparition complète. Station d'accueil avec vidage automatique. Indice de réparabilité 8/10. Livré en 24/72h.",
+      category: "Électroménager premium",
+      price: 71900,
+      originalPrice: 119900,
       stock: 4,
-      imageUrl: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&q=80&w=800",
-      isFeatured: true,
-      brand: "Apple",
-      partnership: "Boulanger",
-    },
-    {
-      name: "Dyson Airwrap i.d. Multistyle",
-      description: "Le nouveau fer multistyle connecté pour définir votre routine cheveux via l'application MyDyson.",
-      category: "Soin & beauté",
-      price: 27400,
-      originalPrice: 54900,
-      stock: 12,
-      imageUrl: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=800",
+      imageUrl: "/images/dyson-spot-scrub-1.png",
       isFeatured: true,
       brand: "Dyson",
       partnership: "Darty",
     },
     {
-      name: "GHD Chronos",
-      description: "Le nouveau lisseur professionnel HD motion-responsive de ghd. 2x plus de réactivité.",
-      category: "Soin & beauté",
-      price: 17900,
-      originalPrice: 35900,
-      stock: 7,
-      imageUrl: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=800",
-      isFeatured: false,
-      brand: "GHD",
+      name: "Aspirateur laveur Dyson V16 Piston Animal Submarine™",
+      description: "L'aspirateur 3-en-1 auto-démêlant le plus puissant : aspire, lave et se transforme en aspirateur à main. Laser pour détecter la poussière. Brosse Submarine™ 2.0 pour sols durs. Plusieurs configurations (sans-fil + 3 accessoires, ou + brosse Submarine™ + 3 accessoires, ou + 6 accessoires). Livré en 24/72h.",
+      category: "Électroménager premium",
+      price: 59900,
+      originalPrice: 99900,
+      stock: 5,
+      imageUrl: "/images/dyson-v16-submarine-1.png",
+      isFeatured: true,
+      brand: "Dyson",
       partnership: "Darty",
     },
-    {
-      name: "Airpods Pro 3",
-      description: "Réduction active du bruit deux fois plus performante et Audio spatial personnalisé.",
-      category: "Accessoires",
-      price: 13900,
-      originalPrice: 27900,
-      stock: 25,
-      imageUrl: "https://images.unsplash.com/photo-1588423019284-441a0f27bc39?auto=format&fit=crop&q=80&w=800",
-      isFeatured: false,
-      brand: "Apple",
-      partnership: "Fnac",
-    }
   ]).returning();
 
   await db.insert(reviews).values([
