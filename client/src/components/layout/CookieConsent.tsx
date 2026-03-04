@@ -57,7 +57,7 @@ export function CookieConsent() {
 
   return (
     <div
-      className="fixed left-0 right-0 bottom-0 z-[100] p-4 sm:p-5 bg-card/98 backdrop-blur-xl border-t-2 border-primary/20 shadow-[0_-4px_24px_rgba(0,0,0,0.08)] safe-area-pb"
+      className="fixed left-0 right-0 bottom-0 z-[100] p-4 sm:p-5 bg-white border-t border-gray-200 shadow-[0_-4px_24px_rgba(0,0,0,0.1)] safe-area-pb"
       role="dialog"
       aria-labelledby="cookie-consent-title"
       aria-describedby="cookie-consent-desc"
@@ -68,10 +68,10 @@ export function CookieConsent() {
             <Cookie className="w-5 h-5 text-primary" strokeWidth={1.5} aria-hidden />
           </div>
           <div className="min-w-0">
-            <h2 id="cookie-consent-title" className="font-semibold text-foreground text-sm sm:text-base mb-0.5">
+            <h2 id="cookie-consent-title" className="font-semibold text-gray-900 text-sm sm:text-base mb-0.5">
               Nous utilisons des cookies
             </h2>
-            <p id="cookie-consent-desc" className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
+            <p id="cookie-consent-desc" className="text-gray-600 text-xs sm:text-sm leading-relaxed">
               Pour le bon fonctionnement du site, la sécurité et votre expérience. En continuant, vous acceptez notre utilisation des cookies.{" "}
               <Link href="/cookies" className="text-primary font-medium underline underline-offset-2 hover:no-underline">
                 En savoir plus
@@ -84,7 +84,7 @@ export function CookieConsent() {
             variant="outline"
             size="sm"
             onClick={refuse}
-            className="min-h-[44px] touch-manipulation rounded-lg border-border text-muted-foreground hover:text-foreground"
+            className="min-h-[44px] touch-manipulation rounded-lg border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
           >
             Refuser
           </Button>
