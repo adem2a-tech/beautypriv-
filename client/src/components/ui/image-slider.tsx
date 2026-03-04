@@ -1,11 +1,12 @@
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Expand } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ImageSliderProps extends React.HTMLAttributes<HTMLDivElement> {
   images: string[];
   interval?: number;
+  onExpandClick?: (currentIndex: number) => void;
 }
 
 const ImageSlider = React.forwardRef<HTMLDivElement, ImageSliderProps>(
@@ -57,6 +58,18 @@ const ImageSlider = React.forwardRef<HTMLDivElement, ImageSliderProps>(
 
           {/* Halo rose sur les côtés */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-primary/18 via-transparent to-primary/18 mix-blend-multiply" />
+
+          {/* Bouton agrandir */}
+          {onExpandClick && (
+            <button
+              type="button"
+              onClick={() => onExpandClick(currentIndex)}
+              className="absolute top-2 right-2 z-10 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center transition-colors duration-200 shadow-lg"
+              aria-label="Agrandir l'image"
+            >
+              <Expand className="w-5 h-5" strokeWidth={2} />
+            </button>
+          )}
 
           {/* Flèches gauche / droite */}
           {images.length > 1 && (

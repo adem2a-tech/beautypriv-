@@ -8,13 +8,15 @@ import { useToast } from "@/hooks/use-toast";
 import { getProductGallery } from "@/lib/product-gallery";
 import { ImageSlider } from "@/components/ui/image-slider";
 import { PageBreadcrumb } from "@/components/layout/PageBreadcrumb";
-import { ShieldCheck, Truck, RefreshCw, ShoppingBag, Star, AlertTriangle, Clock, Minus, Plus } from "lucide-react";
+import { ShieldCheck, Truck, RefreshCw, ShoppingBag, Star, AlertTriangle, Clock, Minus, Plus, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function ProductDetails() {
   const { id } = useParams();
   const productId = parseInt(id || "0", 10);
   const [quantity, setQuantity] = useState(1);
+  const [imageExpanded, setImageExpanded] = useState(false);
+  const [expandedImageIndex, setExpandedImageIndex] = useState(0);
 
   const { data: product, isLoading } = useProduct(productId);
   const { data: reviews } = useProductReviews(productId);
@@ -63,6 +65,13 @@ export function ProductDetails() {
     });
   };
 
+  const productImages = getProductGallery(product.name, product.imageUrl);
+  const hasMultipleImages = productImages.length > 1;
+  const goExpandedPrev = () =>
+    setExpandedImageIndex((i) => (i === 0 ? productImages.length - 1 : i - 1));
+  const goExpandedNext = () =>
+    setExpandedImageIndex((i) => (i === productImages.length - 1 ? 0 : i + 1));
+
   const breadcrumbItems = [
     { label: "Accueil", href: "/" },
     { label: "Catalogue", href: "/catalog" },
@@ -85,9 +94,13 @@ export function ProductDetails() {
             >
               <div className="absolute inset-[2px] rounded-none overflow-hidden bg-card/95">
                 <ImageSlider
-                  images={getProductGallery(product.name, product.imageUrl)}
+                  images={productImages}
                   interval={5000}
                   className="w-full h-full"
+                  onExpandClick={(i) => {
+                    setExpandedImageIndex(i);
+                    setImageExpanded(true);
+                  }}
                 />
               </div>
               <div className="absolute top-4 left-4 z-10">
@@ -267,6 +280,53 @@ export function ProductDetails() {
           </div>
         </div>
       </div>
+
+      {/* Overlay plein écran : image agrandie + croix pour revenir */}
+      {imageExpanded && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Image agrandie"
+          onClick={() => setImageExpanded(false)}
+        >
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); setImageExpanded(false); }}
+            className="absolute top-4 left-4 z-10 w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors"
+            aria-label="Fermer et revenir au produit"
+          >
+            <X className="w-6 h-6" strokeWidth={2} />
+          </button>
+          {hasMultipleImages && (
+            <>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); goExpandedPrev(); }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors"
+                aria-label="Image précédente"
+              >
+                <ChevronLeft className="w-7 h-7" strokeWidth={2} />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); goExpandedNext(); }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors"
+                aria-label="Image suivante"
+              >
+                <ChevronRight className="w-7 h-7" strokeWidth={2} />
+              </button>
+            </>
+          )}
+          <div onClick={(e) => e.stopPropagation()}>
+            <img
+              src={productImages[expandedImageIndex]}
+              alt=""
+              className="max-w-[90vw] max-h-[90vh] w-auto h-auto object-contain"
+            />
+          </div>
+        </div>
+      )}
 
       {/* Terminer le paiement — en bas à droite, synchro avec le panier navbar */}
       <Link
