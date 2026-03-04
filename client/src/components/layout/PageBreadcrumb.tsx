@@ -30,7 +30,7 @@ export function PageBreadcrumb({ items }: PageBreadcrumbProps) {
                   </Link>
                 </BreadcrumbLink>
               ) : (
-                <BreadcrumbPage className="text-foreground font-semibold">
+                <BreadcrumbPage className="text-foreground font-semibold line-clamp-2 min-w-0 max-w-[85vw] sm:max-w-none">
                   {item.label}
                 </BreadcrumbPage>
               )}

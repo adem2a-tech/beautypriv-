@@ -92,6 +92,19 @@ const defaultProductValues: InsertProduct[] = [
     brand: "Dyson",
     partnership: "Darty",
   },
+  {
+    name: "Lisseur GHD Chronos Noir à plaques classiques (plaques 26 mm)",
+    description:
+      "Le meilleur lisseur ghd : 3x plus rapide, résultats HD en un seul passage qui durent 24 h. 185°C – température idéale des plaques pour une coiffure sublime, sans dommages. Offre 100€ remboursés*. Également disponible en version GHD Chronos Max (plaques larges). Partenariat Darty.",
+    category: "Soin & beauté",
+    price: 37900,
+    originalPrice: 45900,
+    stock: 5,
+    imageUrl: "/images/ghd-chronos-noir-1.png",
+    isFeatured: true,
+    brand: "GHD",
+    partnership: "Darty",
+  },
   ];
 
 const fallbackProducts: Product[] = defaultProductValues.map((p, index) => ({

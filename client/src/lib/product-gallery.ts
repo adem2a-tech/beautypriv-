@@ -43,6 +43,13 @@ const PRODUCT_GALLERIES: Record<string, string[]> = {
     "/images/airwrap-id-bleu-prusse-3.png",
     "/images/airwrap-id-bleu-prusse-4.png",
   ],
+  "Lisseur GHD Chronos Noir à plaques classiques (plaques 26 mm)": [
+    "/images/ghd-chronos-noir-1.png",
+    "/images/ghd-chronos-noir-2.png",
+    "/images/ghd-chronos-noir-3.png",
+    "/images/ghd-chronos-noir-4.png",
+    "/images/ghd-chronos-noir-5.png",
+  ],
 };
 
 export function getProductGallery(productName: string, fallbackImageUrl: string): string[] {

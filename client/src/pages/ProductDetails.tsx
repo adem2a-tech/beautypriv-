@@ -70,17 +70,17 @@ export function ProductDetails() {
   ];
 
   return (
-    <div className="min-h-screen bg-background py-6 sm:py-8 lg:py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background py-4 sm:py-8 lg:py-12 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0">
         <PageBreadcrumb items={breadcrumbItems} />
 
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-14">
-          {/* Colonne gauche : image produit */}
-          <div className="w-full lg:w-[48%]">
+        <div className="flex flex-col lg:flex-row gap-6 sm:gap-10 lg:gap-14">
+          {/* Colonne gauche : image produit — plus haute sur mobile */}
+          <div className="w-full lg:w-[48%] min-w-0">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              className="relative aspect-[3/4] max-h-[22vh] sm:max-h-[35vh] md:max-h-none sm:aspect-[4/5] rounded-none overflow-visible bg-transparent neon-rose-led hover:neon-rose-led-strong transition-all duration-300"
+              className="relative aspect-[3/4] max-h-[38vh] sm:max-h-[42vh] md:max-h-none sm:aspect-[4/5] rounded-none overflow-visible bg-transparent neon-rose-led hover:neon-rose-led-strong transition-all duration-300"
             >
               <div className="absolute inset-[2px] rounded-none overflow-hidden bg-card/95">
                 <ImageSlider
@@ -97,13 +97,13 @@ export function ProductDetails() {
             </motion.div>
           </div>
 
-          {/* Colonne droite : infos produit — structure type boutique pro */}
-          <div className="w-full lg:w-[52%] flex flex-col">
+          {/* Colonne droite : infos produit — min-w-0 pour que le texte wrap sur mobile */}
+          <div className="w-full lg:w-[52%] flex flex-col min-w-0">
             <motion.div
               initial={{ opacity: 0, x: 16 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.08 }}
-              className="flex flex-col"
+              className="flex flex-col min-w-0"
             >
               <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.2em] mb-2">
                 {product.category}
@@ -111,7 +111,7 @@ export function ProductDetails() {
               <p className="text-xs font-bold text-foreground uppercase tracking-wider mb-1">
                 {product.brand ?? "DYSON"}
               </p>
-              <h1 className="product-title text-2xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-4">
+              <h1 className="product-title text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-3 sm:mb-4 break-words">
                 {product.name}
               </h1>
 
@@ -132,13 +132,13 @@ export function ProductDetails() {
                 </span>
               </div>
 
-              {/* Description */}
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-4">
+              {/* Description — break-words pour ne plus couper en milieu de ligne sur mobile */}
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-4 sm:mb-5 break-words">
                 {product.description}
               </p>
 
               {/* Détails du produit — bloc pour tous les produits */}
-              <div className="font-sans mb-6 p-4 sm:p-5 rounded-xl bg-muted/40 border border-border">
+              <div className="font-sans mb-5 sm:mb-6 p-4 sm:p-5 rounded-xl bg-muted/40 border border-border">
                 <h3 className="text-xs font-bold text-foreground uppercase tracking-wider mb-3">Détails du produit</h3>
                 <dl className="space-y-2 text-sm">
                   <div className="flex flex-wrap gap-x-2">
@@ -232,8 +232,8 @@ export function ProductDetails() {
                 {product.stock === 0 ? "Rupture de stock" : "Ajouter au panier"}
               </Button>
 
-              {/* Garanties — police simple pour lisibilité */}
-              <div className="font-sans grid grid-cols-1 sm:grid-cols-2 gap-4 p-5 rounded-xl bg-card border border-border">
+              {/* Garanties — police simple pour lisibilité, espacement mobile */}
+              <div className="font-sans grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 p-4 sm:p-5 rounded-xl bg-card border border-border">
                 <div className="flex items-start gap-3">
                   <div className="bg-primary/10 p-2 rounded-lg text-primary shrink-0">
                     <Truck className="w-4 h-4" />
